@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nader Adel | Data Analyst & Business Automation Specialist</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Crisp Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        trueblack: '#000000',
+                        surface: '#121214',
+                        surfaceHighlight: '#1A1D24',
+                        borderSubtle: '#2A2F3A',
+                        navyDeep: '#0F294A',
+                        navyRoyal: '#1E3A8A',
+                        accentBlue: '#3B82F6',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000000;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* Subtle background grid pattern for analytical aesthetic */
+        .bg-data-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(42, 47, 58, 0.25) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(42, 47, 58, 0.25) 1px, transparent 1px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2F3A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1E3A8A;
+        }
+
+        /* Card hover elevation */
+        .project-card {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: #3B82F6;
+            box-shadow: 0 20px 40px -15px rgba(30, 58, 138, 0.35);
+        }
+
+        /* Modal backdrop transition */
+        .modal-enter {
+            animation: modalFadeIn 0.25s ease-out forwards;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-trueblack text-gray-100 antialiased selection:bg-navyRoyal selection:text-white">
+
+    <!-- ===================================================================== -->
+    <!-- 1. STICKY NAVIGATION BAR                                              -->
+    <!-- ===================================================================== -->
+    <nav class="sticky top-0 z-40 w-full bg-trueblack/85 backdrop-blur-md border-b border-borderSubtle">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-navyRoyal to-navyDeep border border-accentBlue/40 flex items-center justify-center shadow-lg group-hover:border-accentBlue transition">
+                        <span class="font-extrabold text-white text-lg tracking-tight">NA<span class="text-accentBlue">.</span></span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span id="navBrandName" class="font-bold text-white text-base sm:text-lg leading-none">Nader Adel</span>
+                        <span id="navBrandSub" class="text-[11px] text-gray-400 tracking-wider uppercase mt-1">Data & Automation</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center gap-7">
+                    <a href="#about" data-i18n="navAbout" class="text-sm font-medium text-gray-300 hover:text-white transition">About</a>
+                    <a href="#education" data-i18n="navEducation" class="text-sm font-medium text-gray-300 hover:text-white transition">Education</a>
+                    <a href="#projects" data-i18n="navProjects" class="text-sm font-medium text-gray-300 hover:text-white transition">Projects</a>
+                    <a href="#skills" data-i18n="navSkills" class="text-sm font-medium text-gray-300 hover:text-white transition">Tech Stack</a>
+                    <a href="#contact" data-i18n="navContact" class="text-sm font-medium text-gray-300 hover:text-white transition">Contact</a>
+                </div>
+
+                <!-- Language Switcher, CTA & Mobile Menu Toggle -->
+                <div class="flex items-center gap-2.5 sm:gap-3">
+                    <!-- Bilingual Toggle Button -->
+                    <button id="langToggleBtn" onclick="toggleLanguage()" aria-label="Switch Language"
+                            class="px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-surfaceHighlight hover:bg-navyDeep border border-borderSubtle hover:border-accentBlue/50 text-gray-200 hover:text-white text-xs sm:text-sm font-bold transition flex items-center gap-2 shadow-md">
+                        <i class="fa-solid fa-globe text-accentBlue"></i>
+                        <span id="langToggleLabel">العربية</span>
+                    </button>
+
+                    <a href="#contact" class="px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-navyRoyal hover:bg-blue-800 border border-accentBlue/40 text-white text-xs sm:text-sm font-semibold transition shadow-lg shadow-navyDeep/50 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-xs text-accentBlue"></i>
+                        <span data-i18n="navHireMe">Hire Me</span>
+                    </a>
+                    <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden p-2.5 rounded-xl bg-surface border border-borderSubtle text-gray-300 hover:text-white">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden bg-surface border-b border-borderSubtle px-4 pt-2 pb-4 space-y-2">
+            <a href="#about" data-i18n="navAbout" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-surfaceHighlight hover:text-white">About</a>
+            <a href="#education" data-i18n="navEducation" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-surfaceHighlight hover:text-white">Education & Certifications</a>
+            <a href="#projects" data-i18n="navProjects" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-surfaceHighlight hover:text-white">Projects Showcase</a>
+            <a href="#skills" data-i18n="navSkills" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-surfaceHighlight hover:text-white">Core Tech Stack</a>
+            <a href="#contact" data-i18n="navContact" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-surfaceHighlight hover:text-white">Contact Info</a>
+            <button onclick="toggleLanguage()" class="w-full text-start px-3 py-2.5 rounded-lg text-sm font-bold text-accentBlue bg-surfaceHighlight/60 hover:bg-surfaceHighlight flex items-center justify-between">
+                <span data-i18n="mobileLangPrompt">Switch Language</span>
+                <span id="mobileLangToggleLabel">العربية</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===================================================================== -->
+    <!-- 2. HERO SECTION                                                       -->
+    <!-- ===================================================================== -->
+    <header id="about" class="relative pt-14 pb-20 sm:pt-24 sm:pb-28 bg-data-grid border-b border-borderSubtle overflow-hidden">
+        <!-- Ambient Navy Glow -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-navyRoyal/25 blur-[130px] rounded-full pointer-events-none"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl">
+                <!-- Availability Badge -->
+                <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-surface border border-borderSubtle mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span data-i18n="heroBadge" class="text-xs font-medium text-gray-300 tracking-wide">Available for Freelance & Consulting Projects</span>
+                </div>
+
+                <!-- Main Name & Title -->
+                <h1 id="heroName" class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-4">
+                    Nader Adel
+                </h1>
+                <h2 id="heroTitle" class="text-xl sm:text-3xl font-bold bg-gradient-to-r from-accentBlue via-blue-300 to-gray-200 bg-clip-text text-transparent mb-6">
+                    Data Analyst & Business Automation Specialist
+                </h2>
+
+                <!-- Executive Summary -->
+                <p id="heroSummary" class="text-base sm:text-lg text-gray-400 leading-relaxed mb-6 max-w-2xl">
+                    I transform complex, raw operational data into executive <span class="text-gray-200 font-medium">Power BI dashboards</span>, dynamic <span class="text-gray-200 font-medium">Excel analytics solutions</span>, and custom <span class="text-gray-200 font-medium">MS Access & SQL database systems</span> that eliminate manual bottlenecks and drive measurable business growth.
+                </p>
+
+                <!-- Core Skills Badges (Including Power Query & Python) -->
+                <div class="flex flex-wrap items-center gap-2 mb-8">
+                    <span class="px-3 py-1.5 rounded-xl bg-surfaceHighlight border border-borderSubtle text-xs font-semibold text-gray-200 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-column text-accentBlue"></i> Power BI
+                    </span>
+                    <span class="px-3 py-1.5 rounded-xl bg-navyDeep/70 border border-accentBlue/40 text-xs font-semibold text-blue-200 flex items-center gap-1.5">
+                        <i class="fa-solid fa-filter text-accentBlue"></i> Power Query (ETL)
+                    </span>
+                    <span class="px-3 py-1.5 rounded-xl bg-navyDeep/70 border border-accentBlue/40 text-xs font-semibold text-blue-200 flex items-center gap-1.5">
+                        <i class="fa-brands fa-python text-amber-400"></i> Python
+                    </span>
+                    <span class="px-3 py-1.5 rounded-xl bg-surfaceHighlight border border-borderSubtle text-xs font-semibold text-gray-200 flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-excel text-emerald-400"></i> Excel
+                    </span>
+                    <span class="px-3 py-1.5 rounded-xl bg-surfaceHighlight border border-borderSubtle text-xs font-semibold text-gray-200 flex items-center gap-1.5">
+                        <i class="fa-solid fa-database text-sky-400"></i> SQL Server
+                    </span>
+                    <span class="px-3 py-1.5 rounded-xl bg-surfaceHighlight border border-borderSubtle text-xs font-semibold text-gray-200 flex items-center gap-1.5">
+                        <i class="fa-solid fa-server text-indigo-400"></i> MS Access
+                    </span>
+                    <span class="px-3 py-1.5 rounded-xl bg-surfaceHighlight border border-borderSubtle text-xs font-semibold text-gray-200 flex items-center gap-1.5">
+                        <i class="fa-solid fa-gears text-gray-400"></i> <span data-i18n="skillAutomation">Business Automation</span>
+                    </span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="#projects" class="px-6 py-3.5 rounded-xl bg-navyRoyal hover:bg-blue-800 border border-accentBlue/50 text-white font-semibold text-sm sm:text-base transition shadow-xl shadow-navyDeep/60 flex items-center gap-2.5">
+                        <i class="fa-solid fa-chart-line text-accentBlue"></i>
+                        <span data-i18n="heroBtnProjects">Explore Interactive Projects</span>
+                    </a>
+                    <a href="#contact" class="px-6 py-3.5 rounded-xl bg-surface hover:bg-surfaceHighlight border border-borderSubtle text-gray-200 font-semibold text-sm sm:text-base transition flex items-center gap-2.5">
+                        <span data-i18n="heroBtnContact">Get in Touch</span>
+                        <i id="heroBtnArrow" class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
+                    </a>
+                </div>
+
+                <!-- Key Metrics Strip -->
+                <div class="grid grid-cols-3 gap-4 sm:gap-8 mt-12 pt-8 border-t border-borderSubtle/80 max-w-xl">
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-white">Power BI</div>
+                        <div data-i18n="metric1Sub" class="text-xs sm:text-sm text-gray-400 mt-1">DAX & Data Modeling</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-white">Excel BI</div>
+                        <div data-i18n="metric2Sub" class="text-xs sm:text-sm text-gray-400 mt-1">Automated Dashboards</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-white">SQL & VBA</div>
+                        <div data-i18n="metric3Sub" class="text-xs sm:text-sm text-gray-400 mt-1">Custom DB Systems</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- 2.5 EDUCATION & CERTIFICATIONS SECTION (BEFORE PROJECTS)              -->
+    <!-- ===================================================================== -->
+    <section id="education" class="py-16 sm:py-20 bg-surface border-b border-borderSubtle">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <span data-i18n="eduTag" class="text-xs font-bold uppercase tracking-widest text-accentBlue">Academic & Certified Credentials</span>
+                    <h2 data-i18n="eduHeading" class="text-2xl sm:text-4xl font-extrabold text-white mt-2">
+                        Education & Certifications
+                    </h2>
+                </div>
+                <p data-i18n="eduSubheading" class="text-gray-400 text-sm max-w-md">
+                    A strong academic foundation in Management Information Systems backed by certified hands-on training in data analytics and automation.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-7">
+                
+                <!-- Card 1: Academic Education (Sadat Academy MIS) -->
+                <div class="rounded-2xl bg-trueblack border border-borderSubtle hover:border-accentBlue/50 p-6 sm:p-8 flex flex-col justify-between transition shadow-xl">
+                    <div>
+                        <div class="flex items-start justify-between gap-4 mb-5">
+                            <div class="w-12 h-12 rounded-xl bg-navyDeep border border-accentBlue/40 flex items-center justify-center text-accentBlue text-xl shrink-0">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <span dir="ltr" class="px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/40 text-emerald-300 text-xs sm:text-sm font-extrabold tracking-wide shadow-sm">
+                                GPA: 3.6 / 4.0
+                            </span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <span data-i18n="edu1Period" class="text-xs font-bold text-accentBlue uppercase tracking-wider">Bachelor's Degree • 2023 – 2027</span>
+                            <h3 data-i18n="edu1Title" class="text-xl sm:text-2xl font-bold text-white leading-snug">
+                                B.Sc. in Management Information Systems (MIS)
+                            </h3>
+                            <p data-i18n="edu1Inst" class="text-sm font-semibold text-gray-300">
+                                Sadat Academy for Management Sciences (Maadi Campus)
+                            </p>
+                            <p data-i18n="edu1Desc" class="text-sm text-gray-400 pt-2 leading-relaxed">
+                                Specialized studies combining business administration, systems analysis, relational database design (SQL & Access), and data-driven decision support.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-borderSubtle/80 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
+                        <span class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-location-dot text-accentBlue"></i> <span data-i18n="edu1Loc">Maadi, Cairo</span>
+                        </span>
+                        <span data-i18n="edu1Badge" class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 font-medium">
+                            Class of 2027 • Honors Standing
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Professional Diploma (WE Telecom Egypt 160 Hours) -->
+                <div class="rounded-2xl bg-trueblack border border-borderSubtle hover:border-accentBlue/50 p-6 sm:p-8 flex flex-col justify-between transition shadow-xl">
+                    <div>
+                        <div class="flex items-start justify-between gap-4 mb-5">
+                            <div class="w-12 h-12 rounded-xl bg-purple-950/70 border border-purple-500/40 flex items-center justify-center text-purple-300 font-extrabold text-lg shrink-0">
+                                we
+                            </div>
+                            <span data-i18n="edu2Hours" class="px-3.5 py-1.5 rounded-full bg-navyDeep border border-accentBlue/40 text-blue-200 text-xs font-bold">
+                                160 Training Hours
+                            </span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <span data-i18n="edu2Period" class="text-xs font-bold text-accentBlue uppercase tracking-wider">Verified Certification • August – September 2026</span>
+                            <h3 data-i18n="edu2Title" class="text-xl sm:text-2xl font-bold text-white leading-snug">
+                                Certified Data Analysis Diploma
+                            </h3>
+                            <p data-i18n="edu2Inst" class="text-sm font-semibold text-gray-300">
+                                Telecom Egypt (WE) • August 9 – September 25, 2026
+                            </p>
+                            <p data-i18n="edu2Desc" class="text-sm text-gray-400 pt-2 leading-relaxed">
+                                Intensive 160-hour practical training program covering the end-to-end data analytics lifecycle—from ETL data cleaning to modeling and interactive dashboards.
+                            </p>
+                        </div>
+
+                        <!-- Covered Diploma Modules -->
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight border border-borderSubtle text-xs font-medium text-gray-200">Excel</span>
+                            <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight border border-borderSubtle text-xs font-medium text-gray-200">Power BI</span>
+                            <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight border border-borderSubtle text-xs font-medium text-gray-200">Power Query</span>
+                            <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight border border-borderSubtle text-xs font-medium text-gray-200">Python</span>
+                            <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight border border-borderSubtle text-xs font-medium text-gray-200">SQL Server</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-borderSubtle/80 flex items-center justify-between gap-3">
+                        <span class="text-xs text-gray-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-certificate text-amber-400"></i> <span data-i18n="edu2Verified">Verified Credential</span>
+                        </span>
+                        <button onclick="openCertificateModal()" 
+                                class="px-4 py-2 rounded-xl bg-navyRoyal hover:bg-blue-800 border border-accentBlue/50 text-white text-xs sm:text-sm font-semibold transition flex items-center gap-2 shadow-lg">
+                            <i class="fa-solid fa-award text-amber-300"></i>
+                            <span data-i18n="edu2Btn">View Certificate</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 3. PROJECTS SHOWCASE (3 ORDERED CATEGORIES + INTERACTIVE PREVIEW)     -->
+    <!-- ===================================================================== -->
+    <section id="projects" class="py-20 sm:py-24 bg-trueblack">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header & Instructions Banner -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                <div>
+                    <span data-i18n="projTag" class="text-xs font-bold uppercase tracking-widest text-accentBlue">Portfolio Showcase</span>
+                    <h2 data-i18n="projHeading" class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Featured Solutions & Dashboards</h2>
+                    <p id="projSubheading" class="text-gray-400 text-sm sm:text-base mt-2 max-w-2xl">
+                        Click on any project preview card below to launch an <span class="text-white font-medium">interactive read-only live session</span>—explore slicers, switch tabs, and inspect interfaces safely.
+                    </p>
+                </div>
+
+                <!-- Category Filter Pills (Ordered exactly as requested) -->
+                <div class="flex flex-wrap gap-2 bg-surface p-1.5 rounded-2xl border border-borderSubtle self-start">
+                    <button onclick="filterProjects('all')" data-filter="all" data-i18n="filterAll" class="filter-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-navyRoyal text-white">
+                        All Projects
+                    </button>
+                    <button onclick="filterProjects('powerbi')" data-filter="powerbi" data-i18n="filterPbi" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition text-gray-400 hover:text-white">
+                        1. Power BI
+                    </button>
+                    <button onclick="filterProjects('excel')" data-filter="excel" data-i18n="filterExcel" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition text-gray-400 hover:text-white">
+                        2. Excel Solutions
+                    </button>
+                    <button onclick="filterProjects('database')" data-filter="database" data-i18n="filterDb" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition text-gray-400 hover:text-white">
+                        3. Databases
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Container for Ordered Sections -->
+            <div id="projectsContainer" class="space-y-20">
+                <!-- Sections are rendered dynamically via JavaScript from PROJECTS_DATA -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 4. CORE TECHNICAL STACK & EXPERTISE                                   -->
+    <!-- ===================================================================== -->
+    <section id="skills" class="py-20 bg-surface border-y border-borderSubtle">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span data-i18n="skillsTag" class="text-xs font-bold uppercase tracking-widest text-accentBlue">Technical Capabilities</span>
+                <h2 data-i18n="skillsHeading" class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Core Analytical & Automation Stack</h2>
+                <p data-i18n="skillsSubheading" class="text-gray-400 text-sm sm:text-base mt-3">
+                    End-to-end data pipeline management—from raw database architecture and ETL cleaning to executive visual storytelling.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1: Power BI -->
+                <div class="p-6 rounded-2xl bg-trueblack border border-borderSubtle hover:border-accentBlue/50 transition">
+                    <div class="w-12 h-12 rounded-xl bg-navyDeep/80 border border-accentBlue/30 flex items-center justify-center text-accentBlue text-xl mb-5">
+                        <i class="fa-solid fa-chart-column"></i>
+                    </div>
+                    <h3 data-i18n="stack1Title" class="text-lg font-bold text-white mb-2">Power BI & BI Reporting</h3>
+                    <p data-i18n="stack1Desc" class="text-sm text-gray-400 mb-4 leading-relaxed">
+                        Interactive executive dashboards, complex DAX measures, star-schema data modeling, and automated Power Query ETL.
+                    </p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">DAX</span>
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">Power Query</span>
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">Data Modeling</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Advanced Excel -->
+                <div class="p-6 rounded-2xl bg-trueblack border border-borderSubtle hover:border-accentBlue/50 transition">
+                    <div class="w-12 h-12 rounded-xl bg-navyDeep/80 border border-accentBlue/30 flex items-center justify-center text-emerald-400 text-xl mb-5">
+                        <i class="fa-solid fa-table"></i>
+                    </div>
+                    <h3 data-i18n="stack2Title" class="text-lg font-bold text-white mb-2">Advanced Excel Analytics</h3>
+                    <p data-i18n="stack2Desc" class="text-sm text-gray-400 mb-4 leading-relaxed">
+                        Dynamic KPI trackers, financial models, Pivot Tables, XLOOKUP/SUMIFS automation, and interactive slicer reports.
+                    </p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">Pivot Tables</span>
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">XLOOKUP</span>
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">Power Pivot</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Relational Databases -->
+                <div class="p-6 rounded-2xl bg-trueblack border border-borderSubtle hover:border-accentBlue/50 transition">
+                    <div class="w-12 h-12 rounded-xl bg-navyDeep/80 border border-accentBlue/30 flex items-center justify-center text-blue-400 text-xl mb-5">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h3 data-i18n="stack3Title" class="text-lg font-bold text-white mb-2">Databases (Access & SQL)</h3>
+                    <p data-i18n="stack3Desc" class="text-sm text-gray-400 mb-4 leading-relaxed">
+                        Custom desktop ERP/inventory apps in MS Access with VBA forms, relational SQL Server schemas, and optimized queries.
+                    </p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">MS Access</span>
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">SQL Server</span>
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">VBA</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Process Automation -->
+                <div class="p-6 rounded-2xl bg-trueblack border border-borderSubtle hover:border-accentBlue/50 transition">
+                    <div class="w-12 h-12 rounded-xl bg-navyDeep/80 border border-accentBlue/30 flex items-center justify-center text-indigo-400 text-xl mb-5">
+                        <i class="fa-solid fa-gears"></i>
+                    </div>
+                    <h3 data-i18n="stack4Title" class="text-lg font-bold text-white mb-2">Workflow Automation</h3>
+                    <p data-i18n="stack4Desc" class="text-sm text-gray-400 mb-4 leading-relaxed">
+                        Automating repetitive accounting, tax portal entries, and data cleaning pipelines using Python, Pandas, and VBScript.
+                    </p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">Python / Pandas</span>
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">VBScript</span>
+                        <span class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-gray-300 text-xs font-medium">ETL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. CONTACT SECTION & FOOTER                                           -->
+    <!-- ===================================================================== -->
+    <section id="contact" class="py-20 sm:py-24 bg-trueblack relative overflow-hidden">
+        <div class="absolute bottom-0 right-0 w-[500px] h-[300px] bg-navyDeep/30 blur-[140px] rounded-full pointer-events-none"></div>
+
+        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="rounded-3xl bg-surface border border-borderSubtle p-8 sm:p-12 shadow-2xl">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span data-i18n="contactTag" class="text-xs font-bold uppercase tracking-widest text-accentBlue">Direct Contact</span>
+                    <h2 data-i18n="contactHeading" class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Let’s Automate & Visualize Your Data</h2>
+                    <p data-i18n="contactSubheading" class="text-gray-400 text-sm sm:text-base mt-3">
+                        Ready to build a custom Power BI dashboard, streamline your Excel workflows, or deploy an MS Access database? Reach out directly via WhatsApp, Email, or LinkedIn.
+                    </p>
+                </div>
+
+                <!-- 3 Direct Contact Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    
+                    <!-- Phone & WhatsApp Card -->
+                    <div class="p-5 rounded-2xl bg-trueblack border border-borderSubtle hover:border-emerald-500/50 transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <button onclick="copyToClipboard('01208769176', currentLang === 'ar' ? 'تم نسخ رقم الهاتف!' : 'Phone number copied!')" class="px-2.5 py-1.5 rounded-lg bg-surfaceHighlight hover:bg-gray-800 text-xs text-gray-300 transition flex items-center gap-1.5" title="Copy Number">
+                                    <i class="fa-regular fa-copy"></i> <span data-i18n="btnCopy">Copy</span>
+                                </button>
+                            </div>
+                            <h3 data-i18n="contactPhoneLabel" class="text-sm font-semibold text-gray-400">Phone & WhatsApp</h3>
+                            <p class="text-lg font-bold text-white mt-1 tracking-wide" dir="ltr">01208769176</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-5">
+                            <a href="https://wa.me/201208769176" target="_blank" rel="noopener noreferrer" data-i18n="btnWhatsapp" class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold text-center transition">
+                                WhatsApp
+                            </a>
+                            <a href="tel:+201208769176" data-i18n="btnCall" class="py-2.5 px-3 rounded-xl bg-surfaceHighlight hover:bg-gray-800 border border-borderSubtle text-gray-200 text-xs font-semibold text-center transition">
+                                Call Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Email Card -->
+                    <div class="p-5 rounded-2xl bg-trueblack border border-borderSubtle hover:border-accentBlue/60 transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-11 h-11 rounded-xl bg-navyDeep border border-accentBlue/30 flex items-center justify-center text-accentBlue text-xl">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <button onclick="copyToClipboard('naderadel233@gmail.com', currentLang === 'ar' ? 'تم نسخ البريد الإلكتروني!' : 'Email address copied!')" class="px-2.5 py-1.5 rounded-lg bg-surfaceHighlight hover:bg-gray-800 text-xs text-gray-300 transition flex items-center gap-1.5" title="Copy Email">
+                                    <i class="fa-regular fa-copy"></i> <span data-i18n="btnCopy">Copy</span>
+                                </button>
+                            </div>
+                            <h3 data-i18n="contactEmailLabel" class="text-sm font-semibold text-gray-400">Email Address</h3>
+                            <p class="text-sm sm:text-base font-bold text-white mt-1 break-all" dir="ltr">naderadel233@gmail.com</p>
+                        </div>
+                        <a href="mailto:naderadel233@gmail.com" data-i18n="btnSendEmail" class="mt-5 w-full py-2.5 px-4 rounded-xl bg-navyRoyal hover:bg-blue-800 border border-accentBlue/40 text-white text-xs font-semibold text-center transition block">
+                            Send an Email
+                        </a>
+                    </div>
+
+                    <!-- LinkedIn Card -->
+                    <div class="p-5 rounded-2xl bg-trueblack border border-borderSubtle hover:border-blue-500/60 transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-11 h-11 rounded-xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </div>
+                                <span data-i18n="contactNetworkTag" class="px-2.5 py-1 rounded-md bg-surfaceHighlight text-[11px] text-gray-400">Professional Network</span>
+                            </div>
+                            <h3 data-i18n="contactLinkedinLabel" class="text-sm font-semibold text-gray-400">LinkedIn Profile</h3>
+                            <p class="text-base font-bold text-white mt-1" dir="ltr">in/nader-adel-data</p>
+                        </div>
+                        <a href="https://www.linkedin.com/in/nader-adel-data" target="_blank" rel="noopener noreferrer" class="mt-5 w-full py-2.5 px-4 rounded-xl bg-surfaceHighlight hover:bg-navyDeep border border-borderSubtle hover:border-accentBlue/50 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-2">
+                            <span data-i18n="btnLinkedin">Connect on LinkedIn</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-trueblack border-t border-borderSubtle text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-gray-400">
+                &copy; <span id="currentYear"></span> <span id="footerName" class="text-white font-semibold">Nader Adel</span>. <span data-i18n="footerRights">All rights reserved.</span>
+            </p>
+            <p data-i18n="footerRole" class="text-xs text-gray-500">
+                Data Analyst & Business Automation Specialist
+            </p>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- 6. INTERACTIVE READ-ONLY LIVE PREVIEW MODAL                           -->
+    <!-- ===================================================================== -->
+    <div id="previewModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-6">
+        <div class="modal-enter w-full max-w-6xl h-[92vh] bg-surface border border-borderSubtle rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            
+            <!-- Modal Top Bar -->
+            <div class="px-4 sm:px-6 py-3.5 bg-trueblack border-b border-borderSubtle flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3 min-w-0">
+                    <span id="modalCategoryBadge" class="px-2.5 py-1 rounded-lg bg-navyDeep border border-accentBlue/40 text-accentBlue text-xs font-bold whitespace-nowrap">
+                        Power BI
+                    </span>
+                    <h3 id="modalTitle" class="text-sm sm:text-lg font-bold text-white truncate">
+                        Project Title
+                    </h3>
+                </div>
+
+                <div class="flex items-center gap-3 shrink-0">
+                    <!-- Read-Only Security Badge -->
+                    <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-medium">
+                        <i class="fa-solid fa-lock text-[10px]"></i>
+                        <span data-i18n="modalReadOnly">Read-Only Interactive Mode</span>
+                    </div>
+
+                    <!-- Fallback External Open Link -->
+                    <a id="modalExternalLink" href="#" target="_blank" rel="noopener noreferrer" 
+                       class="px-3 py-1.5 rounded-xl bg-navyRoyal hover:bg-blue-800 border border-accentBlue/40 text-white text-xs font-semibold flex items-center gap-1.5 transition"
+                       title="Open in Full Browser Tab">
+                        <span data-i18n="modalFullScreen" class="hidden md:inline">Full Screen Tab</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
+                    </a>
+
+                    <!-- Close Modal Button -->
+                    <button onclick="closePreviewModal()" class="w-9 h-9 rounded-xl bg-surfaceHighlight hover:bg-red-500/20 hover:text-red-400 border border-borderSubtle text-gray-300 flex items-center justify-center transition" aria-label="Close Preview">
+                        <i class="fa-solid fa-xmark text-base"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Viewport Content -->
+            <div id="modalViewport" class="flex-1 bg-trueblack overflow-y-auto relative">
+                <!-- Populated dynamically when a project is opened -->
+            </div>
+
+            <!-- Modal Bottom Info Bar -->
+            <div class="px-4 sm:px-6 py-3 bg-trueblack border-t border-borderSubtle flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-gray-400">
+                <p id="modalDescription" class="truncate text-gray-300">Project description goes here.</p>
+                <div id="modalTechTags" class="flex items-center gap-1.5 shrink-0"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification (Replaces alert()) -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 translate-y-20 opacity-0 pointer-events-none transition-all duration-300 px-4 py-3 rounded-xl bg-navyRoyal border border-accentBlue text-white text-sm font-medium shadow-2xl flex items-center gap-2.5">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toastMessage">Copied to clipboard!</span>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- JAVASCRIPT BILINGUAL ENGINE & INTERACTIVE PORTFOLIO                   -->
+    <!-- ===================================================================== -->
+    <script>
+        let currentLang = "en";
+        let currentFilter = "all";
+
+        // =========================================================================
+        // COMPLETE TRANSLATION DICTIONARY (ENGLISH <-> ARABIC)
+        // =========================================================================
+        const TRANSLATIONS = {
+            en: {
+                langBtnText: "العربية",
+                mobileLangPrompt: "Switch Language",
+                navBrandName: "Nader Adel",
+                navBrandSub: "Data & Automation",
+                navAbout: "About",
+                navEducation: "Education",
+                navProjects: "Projects",
+                navSkills: "Tech Stack",
+                navContact: "Contact",
+                navHireMe: "Hire Me",
+
+                heroBadge: "Available for Freelance & Consulting Projects",
+                heroName: "Nader Adel",
+                heroTitle: "Data Analyst & Business Automation Specialist",
+                heroSummaryHTML: `I transform complex, raw operational data into executive <span class="text-gray-200 font-medium">Power BI dashboards</span>, dynamic <span class="text-gray-200 font-medium">Excel analytics solutions</span>, and custom <span class="text-gray-200 font-medium">MS Access & SQL database systems</span> that eliminate manual bottlenecks and drive measurable business growth.`,
+                skillAutomation: "Business Automation",
+                heroBtnProjects: "Explore Interactive Projects",
+                heroBtnContact: "Get in Touch",
+                metric1Sub: "DAX & Data Modeling",
+                metric2Sub: "Automated Dashboards",
+                metric3Sub: "Custom DB Systems",
+
+                eduTag: "Academic & Certified Credentials",
+                eduHeading: "Education & Certifications",
+                eduSubheading: "A strong academic foundation in Management Information Systems backed by certified hands-on training in data analytics and automation.",
+                edu1Period: "Bachelor's Degree • 2023 – 2027",
+                edu1Title: "B.Sc. in Management Information Systems (MIS)",
+                edu1Inst: "Sadat Academy for Management Sciences (Maadi Campus)",
+                edu1Desc: "Specialized studies combining business administration, systems analysis, relational database design (SQL & Access), and data-driven decision support.",
+                edu1Loc: "Maadi, Cairo",
+                edu1Badge: "Class of 2027 • Honors Standing",
+
+                edu2Hours: "160 Training Hours",
+                edu2Period: "Verified Certification • August – September 2026",
+                edu2Title: "Certified Data Analysis Diploma",
+                edu2Inst: "Telecom Egypt (WE) • August 9 – September 25, 2026",
+                edu2Desc: "Intensive 160-hour practical training program covering the end-to-end data analytics lifecycle—from ETL data cleaning to modeling and interactive dashboards.",
+                edu2Verified: "Verified Credential",
+                edu2Btn: "View Certificate",
+
+                projTag: "Portfolio Showcase",
+                projHeading: "Featured Solutions & Dashboards",
+                projSubheadingHTML: `Click on any project preview card below to launch an <span class="text-white font-medium">interactive read-only live session</span>—explore slicers, switch tabs, and inspect interfaces safely.`,
+                filterAll: "All Projects",
+                filterPbi: "1. Power BI",
+                filterExcel: "2. Excel Solutions",
+                filterDb: "3. Databases",
+
+                cardHoverBtn: "Open Live Interactive Preview",
+                cardHoverSub: "Read-Only Mode (Explore Safely)",
+                cardExploreHint: "Click to explore",
+                projectSingular: "Project",
+                projectPlural: "Projects",
+
+                skillsTag: "Technical Capabilities",
+                skillsHeading: "Core Analytical & Automation Stack",
+                skillsSubheading: "End-to-end data pipeline management—from raw database architecture and ETL cleaning to executive visual storytelling.",
+                stack1Title: "Power BI & BI Reporting",
+                stack1Desc: "Interactive executive dashboards, complex DAX measures, star-schema data modeling, and automated Power Query ETL.",
+                stack2Title: "Advanced Excel Analytics",
+                stack2Desc: "Dynamic KPI trackers, financial models, Pivot Tables, XLOOKUP/SUMIFS automation, and interactive slicer reports.",
+                stack3Title: "Databases (Access & SQL)",
+                stack3Desc: "Custom desktop ERP/inventory apps in MS Access with VBA forms, relational SQL Server schemas, and optimized queries.",
+                stack4Title: "Workflow Automation",
+                stack4Desc: "Automating repetitive accounting, tax portal entries, and data cleaning pipelines using Python, Pandas, and VBScript.",
+
+                contactTag: "Direct Contact",
+                contactHeading: "Let’s Automate & Visualize Your Data",
+                contactSubheading: "Ready to build a custom Power BI dashboard, streamline your Excel workflows, or deploy an MS Access database? Reach out directly via WhatsApp, Email, or LinkedIn.",
+                btnCopy: "Copy",
+                contactPhoneLabel: "Phone & WhatsApp",
+                btnWhatsapp: "WhatsApp",
+                btnCall: "Call Now",
+                contactEmailLabel: "Email Address",
+                btnSendEmail: "Send an Email",
+                contactNetworkTag: "Professional Network",
+                contactLinkedinLabel: "LinkedIn Profile",
+                btnLinkedin: "Connect on LinkedIn",
+
+                footerName: "Nader Adel",
+                footerRights: "All rights reserved.",
+                footerRole: "Data Analyst & Business Automation Specialist",
+
+                modalReadOnly: "Read-Only Interactive Mode",
+                modalFullScreen: "Full Screen Tab",
+                modalLoadingTitle: "Loading Interactive OneDrive Session...",
+                modalLoadingSub: "If your browser blocks embedded OneDrive previews, click \"Full Screen Tab\" in the top right corner."
+            },
+            ar: {
+                langBtnText: "English",
+                mobileLangPrompt: "تغيير اللغة",
+                navBrandName: "نادر عادل",
+                navBrandSub: "تحليل البيانات والأتمتة",
+                navAbout: "نبذة عني",
+                navEducation: "التعليم والشهادات",
+                navProjects: "المشاريع",
+                navSkills: "المهارات التقنية",
+                navContact: "تواصل معي",
+                navHireMe: "اطلب خدمة",
+
+                heroBadge: "متاح لمشاريع الفريلانس والاستشارات التحليلية",
+                heroName: "نادر عادل",
+                heroTitle: "محلل بيانات وأخصائي أتمتة الأعمال (Data Analyst & Automation)",
+                heroSummaryHTML: `أقوم بتحويل البيانات التشغيلية الخام والمعقدة إلى <span class="text-gray-200 font-medium">لوحات بيانات تفاعلية على Power BI</span>، وحلول <span class="text-gray-200 font-medium">إكسيل متقدمة</span>، وأنظمة <span class="text-gray-200 font-medium">قواعد بيانات MS Access و SQL</span> للقضاء على العمل اليدوي المتكرر ودعم اتخاذ القرار.`,
+                skillAutomation: "أتمتة العمليات",
+                heroBtnProjects: "استكشف المشاريع التفاعلية",
+                heroBtnContact: "تواصل معي الآن",
+                metric1Sub: "نمذجة البيانات ومعادلات DAX",
+                metric2Sub: "لوحات متابعة آلية",
+                metric3Sub: "أنظمة قواعد بيانات مخصصة",
+
+                eduTag: "المؤهلات الأكاديمية والشهادات",
+                eduHeading: "التعليم والشهادات المعتمدة",
+                eduSubheading: "أساس أكاديمي متخصص في نظم المعلومات الإدارية مدعوم بتدريب عملي معتمد في تحليل البيانات والأتمتة.",
+                edu1Period: "درجة البكالوريوس • 2023 – 2027",
+                edu1Title: "بكالوريوس نظم المعلومات الإدارية (MIS)",
+                edu1Inst: "أكاديمية السادات للعلوم الإدارية (فرع المعادي)",
+                edu1Desc: "دراسة متخصصة تجمع بين إدارة الأعمال، تحليل النظم، تصميم قواعد البيانات العلائقية (SQL & Access)، ودعم اتخاذ القرار المبني على البيانات.",
+                edu1Loc: "المعادي، القاهرة",
+                edu1Badge: "دفعة 2027 • تقدير امتياز",
+
+                edu2Hours: "160 ساعة تدريبية",
+                edu2Period: "شهادة معتمدة • أغسطس – سبتمبر 2026",
+                edu2Title: "دبلومة تحليل البيانات المعتمدة (Data Analysis Diploma)",
+                edu2Inst: "الشركة المصرية للاتصالات (WE) • 9 أغسطس – 25 سبتمبر 2026",
+                edu2Desc: "برنامج تدريبي عملي مكثف (160 ساعة) يغطي دورة تحليل البيانات الكاملة من استخراج وتنظيف البيانات وحتى النمذجة وبناء لوحات المعلومات التفاعلية.",
+                edu2Verified: "شهادة معتمدة وموثقة",
+                edu2Btn: "عرض الشهادة",
+
+                projTag: "معرض الأعمال",
+                projHeading: "أبرز المشاريع ولوحات البيانات",
+                projSubheadingHTML: `اضغط على أي كارت مشروع بالأسفل لفتح <span class="text-white font-medium">معاينة تفاعلية مباشرة للقراءة فقط</span> — تصفح الفلاتر، قلّب الصفحات، واستكشف الواجهات بأمان تام.`,
+                filterAll: "كل المشاريع",
+                filterPbi: "1. برامج Power BI",
+                filterExcel: "2. ملفات الإكسيل",
+                filterDb: "3. قواعد البيانات",
+
+                cardHoverBtn: "فتح المعاينة التفاعلية المباشرة",
+                cardHoverSub: "وضع العرض فقط (تصفح آمن بدون تعديل)",
+                cardExploreHint: "اضغط للاستكشاف",
+                projectSingular: "مشروع",
+                projectPlural: "مشاريع",
+
+                skillsTag: "القدرات التقنية",
+                skillsHeading: "الأدوات والتقنيات الأساسية",
+                skillsSubheading: "إدارة متكاملة لدورة حياة البيانات — بدءاً من هيكلة قواعد البيانات وتنظيفها وحتى بناء التقارير التفاعلية للإدارة.",
+                stack1Title: "تقارير ولوحات Power BI",
+                stack1Desc: "تصميم لوحات معلومات تنفيذية تفاعلية، كتابة معادلات DAX معقدة، نمذجة البيانات، وتنظيفها آلياً عبر Power Query.",
+                stack2Title: "تحليل البيانات المتقدم بـ Excel",
+                stack2Desc: "بناء متتبعات الأداء (KPIs)، النماذج المالية، الجداول المحورية، وأتمتة المعادلات والتقارير التفاعلية.",
+                stack3Title: "قواعد البيانات (Access & SQL)",
+                stack3Desc: "تطوير برامج سطح مكتب مخصصة لإدارة المخازن والأساطيل على MS Access مع نماذج VBA وقواعد بيانات SQL Server.",
+                stack4Title: "أتمتة سير العمل (Automation)",
+                stack4Desc: "أتمتة المهام المحاسبية المتكررة وتنظيف ومعالجة البيانات الضخمة باستخدام Python و Pandas و VBScript.",
+
+                contactTag: "التواصل المباشر",
+                contactHeading: "لنبدأ في تحليل وأتمتة بيانات أعمالك",
+                contactSubheading: "جاهز لبناء داشبورد احترافي على Power BI، تطوير ملفات الإكسيل، أو تصميم قاعدة بيانات MS Access؟ تواصل معي مباشرة عبر واتساب، الإيميل، أو لينكدإن.",
+                btnCopy: "نسخ",
+                contactPhoneLabel: "الهاتف والواتساب",
+                btnWhatsapp: "واتساب",
+                btnCall: "اتصال",
+                contactEmailLabel: "البريد الإلكتروني",
+                btnSendEmail: "إرسال إيميل",
+                contactNetworkTag: "الشبكة المهنية",
+                contactLinkedinLabel: "حساب LinkedIn",
+                btnLinkedin: "تواصل عبر LinkedIn",
+
+                footerName: "نادر عادل",
+                footerRights: "جميع الحقوق محفوظة.",
+                footerRole: "محلل بيانات وأخصائي أتمتة الأعمال",
+
+                modalReadOnly: "وضع المعاينة التفاعلية (للقراءة فقط)",
+                modalFullScreen: "فتح في نافذة كاملة",
+                modalLoadingTitle: "جاري تحميل المعاينة التفاعلية من OneDrive...",
+                modalLoadingSub: "في حال منع المتصفح عرض الملف المضمن، اضغط على زر \"فتح في نافذة كاملة\" في الأعلى."
+            }
+        };
+
+        /**
+         * =========================================================================
+         * NADER ADEL PORTFOLIO PROJECTS CONFIGURATION (BILINGUAL AR/EN)
+         * =========================================================================
+         */
+        const PROJECTS_DATA = [
+            // ---------------------------------------------------------------------
+            // CATEGORY 01: POWER BI DASHBOARDS
+            // ---------------------------------------------------------------------
+            {
+                id: "pbi-sales-branches",
+                category: "powerbi",
+                categoryLabel: { en: "Power BI Dashboard", ar: "لوحة بيانات Power BI" },
+                badgeText: { en: "Interactive Video Demo", ar: "فيديو معاينة تفاعلية" },
+                title: {
+                    en: "Sales Performance by Customers, Employees & Branches",
+                    ar: "تحليل المبيعات حسب العملاء والموظفين والفروع"
+                },
+                subtitle: {
+                    en: "تحليل المبيعات حسب العملاء والموظفين والفروع",
+                    ar: "Customer, Employee & Branch Sales Analytics"
+                },
+                description: {
+                    en: "Comprehensive interactive Power BI dashboard analyzing total sales (5.68M), profit (1.48M), and orders (5K) across global cities, customers, employees, gender, and age demographics.",
+                    ar: "لوحة بيانات تفاعلية شاملة لتحليل المبيعات (5.68M)، الأرباح (1.48M)، والطلبات (5K) موزعة جغرافياً وحسب العملاء والموظفين والفروع والنوع والفئات العمرية."
+                },
+                tags: ["Power BI", "DAX", "Geo Map", "Customer Segmentation"],
+                screenshotUrl: "",
+                embedUrl: "https://1drv.ms/v/c/c3e87a62847a1d80/IQRl45DNs7GTQonTobDvYccnAY3VWc1JDofnDJRwvKe2NEw?width=1440&height=858",
+                previewStyle: "pbi-sales-branches"
+            },
+            {
+                id: "pbi-expatriate-students",
+                category: "powerbi",
+                categoryLabel: { en: "Power BI Dashboard", ar: "لوحة بيانات Power BI" },
+                badgeText: { en: "Interactive Video Demo", ar: "فيديو معاينة تفاعلية" },
+                title: {
+                    en: "Expatriate Students Ratio in Egyptian Universities (2022–2026)",
+                    ar: "تحليل نسب الطلاب المغتربين في الجامعات والمعاهد المصرية"
+                },
+                subtitle: {
+                    en: "تحليل نسب الطلاب المغتربين في الجامعات والمعاهد المصرية",
+                    ar: "Egyptian Universities Expatriate Students Analysis (2022–2026)"
+                },
+                description: {
+                    en: "Interactive longitudinal study tracking and comparing expatriate student enrollment percentages across Egyptian public and private universities from 2022 to 2026 (growing from 27% to 31%).",
+                    ar: "دراسة تحليلية تفاعلية لتتبع ومقارنة نسب الطلاب المغتربين في الجامعات والمعاهد الحكومية والخاصة في مصر من عام 2022 وحتى 2026 (من 27% إلى 31%)."
+                },
+                tags: ["Power BI", "Trend Analysis", "Higher Education", "Arabic BI"],
+                screenshotUrl: "",
+                embedUrl: "https://1drv.ms/v/c/c3e87a62847a1d80/IQS2ng8Ad-9HSYP9eLznDVhnAbOJgXZ1VYRl-lVIG8kMJf4?width=1862&height=920",
+                previewStyle: "pbi-expatriate-students"
+            },
+
+            // ---------------------------------------------------------------------
+            // CATEGORY 02: EXCEL SOLUTIONS & DASHBOARDS
+            // ---------------------------------------------------------------------
+            {
+                id: "excel-fuel-consumption",
+                category: "excel",
+                categoryLabel: { en: "Excel Automation", ar: "منظومة إكسيل متكاملة" },
+                badgeText: { en: "Live Interactive Excel", ar: "ملف إكسيل تفاعلي مباشر" },
+                title: {
+                    en: "Fleet Fuel Consumption & Refueling Date Tracker",
+                    ar: "مراقبة استهلاك الوقود لكل سيارة وتاريخ التفويل"
+                },
+                subtitle: {
+                    en: "مراقبة استهلاك الوقود لكل سيارة وتاريخ التفويل",
+                    ar: "Fleet Fuel Consumption & Odometer Tracker"
+                },
+                description: {
+                    en: "Automated Excel tracking system monitoring vehicle fuel consumption by refueling date, odometer readings (before & after), daily fuel price, distance traveled, and variance/shortage alerts.",
+                    ar: "منظومة إكسيل متكاملة لمراقبة استهلاك البنزين لكل سيارة بناءً على قراءات العداد (قبل وبعد)، سعر اللتر، المسافات المقطوعة، وحساب العجز والزيادة الفعلي آلياً."
+                },
+                tags: ["Excel", "Fleet Tracking", "Conditional Formatting", "Formulas"],
+                screenshotUrl: "",
+                embedUrl: "https://1drv.ms/x/c/c3e87a62847a1d80/IQSTu-PTdsUYQqUQ4Ct8spswARl8Tt1uFp3eELS0PMWnogw",
+                previewStyle: "excel-fuel-consumption"
+            },
+            {
+                id: "excel-sales-dashboard",
+                category: "excel",
+                categoryLabel: { en: "Excel Dashboard", ar: "داشبورد إكسيل تفاعلي" },
+                badgeText: { en: "Live Interactive Excel", ar: "ملف إكسيل تفاعلي مباشر" },
+                title: {
+                    en: "Interactive Sales & Profit Performance Dashboard",
+                    ar: "داشبورد متابعة المبيعات والأرباح"
+                },
+                subtitle: {
+                    en: "داشبورد متابعة المبيعات والأرباح",
+                    ar: "Interactive Retail Sales & Profit Dashboard"
+                },
+                description: {
+                    en: "Dynamic Excel KPI dashboard tracking total sales (2.29M), units sold (37,873), average profit (28.66), sales overtime trends, and regional/sub-category breakdowns with interactive timeline slicers.",
+                    ar: "لوحة مؤشرات أداء ديناميكية على الإكسيل لمتابعة إجمالي المبيعات (2.29M)، الكميات المباعة (37,873)، متوسط الربح (28.66)، والاتجاه الزمني للمبيعات حسب المناطق والفئات."
+                },
+                tags: ["Excel", "Pivot Tables", "Timeline Slicer", "KPI Dashboard"],
+                screenshotUrl: "",
+                embedUrl: "https://1drv.ms/x/c/c3e87a62847a1d80/IQSw1Om3_Dr8TpyCkgAbWBInAbmiZ_doyKao5EStpbskl4E",
+                previewStyle: "excel-sales-dashboard"
+            },
+
+            // ---------------------------------------------------------------------
+            // CATEGORY 03: DATABASE SYSTEMS (MS ACCESS & SQL)
+            // ---------------------------------------------------------------------
+            {
+                id: "db-warehouse-inout",
+                category: "database",
+                categoryLabel: { en: "MS Access System", ar: "نظام قواعد بيانات Access" },
+                badgeText: { en: "Interactive Video Demo", ar: "فيديو معاينة تفاعلية" },
+                title: {
+                    en: "Warehouse Inbound & Outbound Inventory System",
+                    ar: "سيستم تسجيل الوارد والمنصرف للمخازن"
+                },
+                subtitle: {
+                    en: "سيستم تسجيل الوارد والمنصرف للمخازن",
+                    ar: "Warehouse Inventory In/Out Management System"
+                },
+                description: {
+                    en: "Custom MS Access database application managing warehouse inbound/outbound stock movements, unit pricing, recipient logging, and real-time available stock balance calculation.",
+                    ar: "قاعدة بيانات متكاملة على MS Access لإدارة حركة المخازن وتسجيل عمليات الوارد والمنصرف والأسعار واسم المستلم مع حساب الرصيد المتاح لحظياً لكل صنف."
+                },
+                tags: ["MS Access", "Inventory ERP", "VBA Forms", "Real-Time Stock"],
+                screenshotUrl: "",
+                embedUrl: "https://1drv.ms/v/c/c3e87a62847a1d80/IQQCMvfP-9lBS6P-kSUsbG4RAfqFs0qV4148sG9PBB3xIuk?width=1918&height=994",
+                previewStyle: "db-warehouse-inout"
+            },
+            {
+                id: "db-car-oil-tracker",
+                category: "database",
+                categoryLabel: { en: "MS Access System", ar: "نظام قواعد بيانات Access" },
+                badgeText: { en: "Interactive Video Demo", ar: "فيديو معاينة تفاعلية" },
+                title: {
+                    en: "Fleet Movement & Engine Oil Change Monitoring System",
+                    ar: "نظام متابعة تحركات السيارات ومراقبة فترات تغيير زيوت المحرك"
+                },
+                subtitle: {
+                    en: "نظام متابعة تحركات السيارات ومراقبة فترات تغيير زيوت المحرك",
+                    ar: "Fleet Movement & Engine Oil Change Monitoring System"
+                },
+                description: {
+                    en: "MS Access relational database tracking vehicle odometer logs, automatically calculating next oil change milestones and remaining kilometers based on each vehicle's service interval.",
+                    ar: "تطبيق قواعد بيانات على MS Access لتتبع قراءات عداد السيارات وحساب الكيلومترات المتبقية وتنبيهات مواعيد تغيير زيت المحرك بدقة بناءً على دورة الصيانة."
+                },
+                tags: ["MS Access", "Fleet Maintenance", "SQL Queries", "Odometer Alerts"],
+                screenshotUrl: "",
+                embedUrl: "https://1drv.ms/v/c/c3e87a62847a1d80/IQSUCjcDmaSTS5n31P75uVP-AaznIhThMkURcpMNQm-dUbE?width=1916&height=994",
+                previewStyle: "db-car-oil-tracker"
+            }
+        ];
+
+        // Category Metadata in exact user-specified order (Bilingual)
+        const CATEGORY_SECTIONS = [
+            {
+                key: "powerbi",
+                number: "01",
+                title: { en: "Power BI Dashboards", ar: "برامج ولوحات تحليل البيانات (Power BI)" },
+                subtitle: {
+                    en: "Interactive business intelligence reports, DAX modeling, and executive KPI visualizations.",
+                    ar: "تقارير ذكاء الأعمال التفاعلية، نمذجة البيانات، ولوحات مؤشرات الأداء للإدارة."
+                },
+                icon: "fa-chart-pie"
+            },
+            {
+                key: "excel",
+                number: "02",
+                title: { en: "Excel Solutions & Dashboards", ar: "ملفات ولوحات الإكسيل (Excel Solutions)" },
+                subtitle: {
+                    en: "Automated workbooks, dynamic pivot analytics, and formula-driven operational trackers.",
+                    ar: "ملفات عمل مؤتمتة، تحليلات الجداول المحورية، وأنظمة متابعة تشغيلية ديناميكية."
+                },
+                icon: "fa-file-excel"
+            },
+            {
+                key: "database",
+                number: "03",
+                title: { en: "Database Systems (MS Access & SQL)", ar: "أنظمة قواعد البيانات (MS Access & SQL)" },
+                subtitle: {
+                    en: "Custom relational desktop applications, VBA forms, and automated workflow pipelines.",
+                    ar: "تطبيقات قواعد بيانات علائقية مخصصة لإدارة المخازن والأساطيل وأتمتة العمليات."
+                },
+                icon: "fa-database"
+            }
+        ];
+
+        // =========================================================================
+        // LANGUAGE SWITCHER ENGINE (DYNAMIC RTL / LTR + FULL UI TRANSLATION)
+        // =========================================================================
+        function applyLanguage(lang) {
+            currentLang = lang;
+            const t = TRANSLATIONS[lang];
+            const htmlEl = document.documentElement;
+
+            // Set document language and RTL/LTR direction
+            htmlEl.lang = lang;
+            htmlEl.dir = lang === "ar" ? "rtl" : "ltr";
+
+            // Update language switcher labels
+            document.getElementById("langToggleLabel").textContent = t.langBtnText;
+            document.getElementById("mobileLangToggleLabel").textContent = t.langBtnText;
+
+            // Update Brand & Hero elements
+            document.getElementById("navBrandName").textContent = t.navBrandName;
+            document.getElementById("navBrandSub").textContent = t.navBrandSub;
+            document.getElementById("heroName").textContent = t.heroName;
+            document.getElementById("heroTitle").textContent = t.heroTitle;
+            document.getElementById("heroSummary").innerHTML = t.heroSummaryHTML;
+            document.getElementById("projSubheading").innerHTML = t.projSubheadingHTML;
+            document.getElementById("footerName").textContent = t.footerName;
+
+            // Flip Hero secondary button arrow for RTL/LTR
+            const heroArrow = document.getElementById("heroBtnArrow");
+            if (heroArrow) {
+                heroArrow.className = lang === "ar"
+                    ? "fa-solid fa-arrow-left text-xs text-gray-400"
+                    : "fa-solid fa-arrow-right text-xs text-gray-400";
+            }
+
+            // Update all elements with data-i18n attributes
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (t[key]) {
+                    el.textContent = t[key];
+                }
+            });
+
+            // Re-render project cards in the active language
+            renderProjects(currentFilter);
+        }
+
+        function toggleLanguage() {
+            const nextLang = currentLang === "en" ? "ar" : "en";
+            applyLanguage(nextLang);
+            showToast(nextLang === "ar" ? "تم التبديل إلى اللغة العربية" : "Switched to English");
+        }
+
+        // =========================================================================
+        // CUSTOM HIGH-RESOLUTION UI THUMBNAILS MATCHING YOUR 6 SCREENSHOTS
+        // =========================================================================
+        function generateCardThumbnailHTML(project) {
+            if (project.screenshotUrl && project.screenshotUrl.trim() !== "") {
+                return `
+                    <img src="${project.screenshotUrl}" alt="${project.title[currentLang]}" 
+                         class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                `;
+            }
+
+            // 1. Power BI #1: Customer, Employee & Branch Sales Analytics
+            if (project.previewStyle === "pbi-sales-branches") {
+                return `
+                    <div dir="ltr" class="w-full h-full bg-[#070B19] p-3 flex flex-col justify-between select-none overflow-hidden group-hover:scale-[1.03] transition-transform duration-500">
+                        <div class="grid grid-cols-5 gap-1.5">
+                            <div class="bg-[#0D153A] border border-blue-900/60 rounded-lg p-1.5 text-center">
+                                <div class="text-[7px] text-gray-300 font-semibold">Total_Sales</div>
+                                <div class="text-[11px] font-extrabold text-white mt-0.5">5.68M</div>
+                            </div>
+                            <div class="bg-[#0D153A] border border-blue-900/60 rounded-lg p-1.5 text-center">
+                                <div class="text-[7px] text-gray-300 font-semibold">Orders</div>
+                                <div class="text-[11px] font-extrabold text-white mt-0.5">5K</div>
+                            </div>
+                            <div class="bg-[#0D153A] border border-blue-900/60 rounded-lg p-1.5 text-center">
+                                <div class="text-[7px] text-gray-300 font-semibold">Avg_Sales</div>
+                                <div class="text-[11px] font-extrabold text-white mt-0.5">379.40</div>
+                            </div>
+                            <div class="bg-[#0D153A] border border-blue-900/60 rounded-lg p-1.5 text-center">
+                                <div class="text-[7px] text-gray-300 font-semibold">Customers</div>
+                                <div class="text-[11px] font-extrabold text-white mt-0.5">300</div>
+                            </div>
+                            <div class="bg-[#0D153A] border border-blue-900/60 rounded-lg p-1.5 text-center">
+                                <div class="text-[7px] text-gray-300 font-semibold">Total_Profit</div>
+                                <div class="text-[11px] font-extrabold text-sky-400 mt-0.5">1.477M</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-12 gap-1.5 my-1.5 flex-1">
+                            <div class="col-span-3 bg-[#0D153A] border border-blue-900/50 rounded-lg p-1.5 flex flex-col justify-between">
+                                <div class="text-[7px] text-gray-300 font-bold">Gender</div>
+                                <div class="space-y-1">
+                                    <div class="bg-gray-700/80 text-[7px] text-center text-white py-0.5 rounded">Female</div>
+                                    <div class="bg-gray-700/80 text-[7px] text-center text-white py-0.5 rounded">Male</div>
+                                </div>
+                                <div class="text-[6px] text-gray-400">City: All ▾</div>
+                            </div>
+                            <div class="col-span-6 bg-[#0D153A] border border-blue-900/50 rounded-lg p-1.5 flex flex-col justify-between">
+                                <div class="text-[7px] text-center text-gray-200 font-semibold">Total_Sales by CustomerName</div>
+                                <div class="flex items-end gap-1 h-12 px-1">
+                                    <div class="w-full bg-sky-400 rounded-t h-[95%]"></div>
+                                    <div class="w-full bg-sky-400 rounded-t h-[92%]"></div>
+                                    <div class="w-full bg-sky-400 rounded-t h-[90%]"></div>
+                                    <div class="w-full bg-sky-400 rounded-t h-[88%]"></div>
+                                    <div class="w-full bg-sky-400 rounded-t h-[86%]"></div>
+                                    <div class="w-full bg-sky-400 rounded-t h-[85%]"></div>
+                                    <div class="w-full bg-sky-400 rounded-t h-[84%]"></div>
+                                </div>
+                            </div>
+                            <div class="col-span-3 bg-[#0D153A] border border-blue-900/50 rounded-lg p-1.5 flex flex-col justify-between">
+                                <div class="text-[7px] text-center text-gray-200 font-semibold">By Age</div>
+                                <div class="space-y-1 my-auto">
+                                    <div class="h-1 bg-sky-400 rounded w-[90%]"></div>
+                                    <div class="h-1 bg-sky-400 rounded w-[70%]"></div>
+                                    <div class="h-1 bg-sky-400 rounded w-[95%]"></div>
+                                    <div class="h-1 bg-sky-400 rounded w-[60%]"></div>
+                                    <div class="h-1 bg-sky-400 rounded w-[85%]"></div>
+                                    <div class="h-1 bg-sky-400 rounded w-[75%]"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1.5 h-16">
+                            <div class="bg-[#0D153A] border border-blue-900/50 rounded-lg p-1.5 flex flex-col justify-between relative overflow-hidden">
+                                <span class="text-[7px] text-gray-200 font-semibold z-10">Total_Sales by City</span>
+                                <div class="w-full h-10 rounded bg-[#1E293B] relative flex items-center justify-around px-2">
+                                    <span class="w-2 h-2 rounded-full bg-sky-400/80 ring-2 ring-sky-300/40"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-sky-400/80 ring-2 ring-sky-300/40"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-sky-400/80"></span>
+                                    <span class="text-[6px] text-gray-400 uppercase tracking-widest">Global Map</span>
+                                </div>
+                            </div>
+                            <div class="bg-[#0D153A] border border-blue-900/50 rounded-lg p-1.5 flex items-center justify-around">
+                                <div>
+                                    <div class="text-[7px] text-gray-200 font-semibold">Profit by Gender</div>
+                                    <div class="text-[7px] text-sky-400 mt-1">● Female 50%</div>
+                                    <div class="text-[7px] text-red-500">● Male 50%</div>
+                                </div>
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-600 via-red-600 to-sky-400 border border-gray-800"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 2. Power BI #2: Egyptian Universities Expatriate Students
+            if (project.previewStyle === "pbi-expatriate-students") {
+                return `
+                    <div dir="ltr" class="w-full h-full bg-[#0B0F1A] p-3 flex flex-col justify-between select-none overflow-hidden group-hover:scale-[1.03] transition-transform duration-500">
+                        <div class="space-y-1.5">
+                            <div class="grid grid-cols-3 gap-1.5">
+                                <div class="bg-[#1C2434] border border-gray-700/60 rounded-md py-1 px-2 text-center">
+                                    <div class="text-xs font-extrabold text-white">27%</div>
+                                    <div class="text-[6px] text-gray-300">نسبة الطلاب المغتربين 2022</div>
+                                </div>
+                                <div class="bg-[#1C2434] border border-gray-700/60 rounded-md py-1 px-2 text-center">
+                                    <div class="text-xs font-extrabold text-white">28%</div>
+                                    <div class="text-[6px] text-gray-300">نسبة الطلاب المغتربين 2023</div>
+                                </div>
+                                <div class="bg-[#1C2434] border border-gray-700/60 rounded-md py-1 px-2 text-center">
+                                    <div class="text-xs font-extrabold text-white">29%</div>
+                                    <div class="text-[6px] text-gray-300">نسبة الطلاب المغتربين 2024</div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 px-6">
+                                <div class="bg-[#1C2434] border border-gray-700/60 rounded-md py-1 px-2 text-center">
+                                    <div class="text-xs font-extrabold text-white">30%</div>
+                                    <div class="text-[6px] text-gray-300">نسبة الطلاب المغتربين 2025</div>
+                                </div>
+                                <div class="bg-[#1C2434] border border-gray-700/60 rounded-md py-1 px-2 text-center">
+                                    <div class="text-xs font-extrabold text-sky-400">31%</div>
+                                    <div class="text-[6px] text-gray-300">نسبة الطلاب المغتربين 2026</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-12 gap-2 mt-2 flex-1">
+                            <div class="col-span-8 bg-[#111625] border border-gray-800 rounded-lg p-2 flex flex-col justify-between">
+                                <div class="flex items-center justify-end gap-1.5 text-[6px] text-gray-400">
+                                    <span class="text-blue-500">● 2022</span>
+                                    <span class="text-indigo-500">● 2023</span>
+                                    <span class="text-orange-500">● 2024</span>
+                                    <span class="text-purple-500">● 2025</span>
+                                    <span class="text-pink-500">● 2026</span>
+                                </div>
+                                <div class="flex items-end gap-1.5 h-16 pt-1">
+                                    ${[95, 65, 58, 54, 50, 48, 46, 44, 42, 40].map(h => `
+                                        <div class="flex-1 flex items-end gap-[1px] h-full">
+                                            <div class="w-full bg-blue-500 rounded-t-[1px]" style="height:${h - 6}%"></div>
+                                            <div class="w-full bg-orange-500 rounded-t-[1px]" style="height:${h - 3}%"></div>
+                                            <div class="w-full bg-pink-500 rounded-t-[1px]" style="height:${h}%"></div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="text-[6px] text-gray-400 text-center truncate">جامعة الأزهر • جامعة القاهرة • عين شمس • أكاديمية السادات • GUC • BUE</div>
+                            </div>
+                            <div class="col-span-4 bg-white rounded-lg p-1.5 text-gray-900 flex flex-col justify-between text-right" dir="rtl">
+                                <div class="text-[7px] font-bold border-b border-gray-200 pb-0.5">اسم المؤسسة / الكيان</div>
+                                <div class="space-y-0.5 text-[6px] font-semibold">
+                                    <div>☐ أكاديمية السادات</div>
+                                    <div>☐ معاهد الشروق</div>
+                                    <div>☐ الجامعة الألمانية GUC</div>
+                                    <div>☐ الجامعة البريطانية</div>
+                                    <div>☐ جامعة القاهرة</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 3. Excel #1: Fleet Fuel Consumption Sheet
+            if (project.previewStyle === "excel-fuel-consumption") {
+                return `
+                    <div class="w-full h-full bg-[#111315] p-3 flex flex-col justify-between select-none overflow-hidden group-hover:scale-[1.03] transition-transform duration-500" dir="rtl">
+                        <div class="rounded-lg overflow-hidden border border-gray-700 text-[7px] font-bold">
+                            <div class="grid grid-cols-8 text-center">
+                                <div class="bg-white text-black py-1 border-l border-gray-400">التاريخ</div>
+                                <div class="bg-white text-black py-1 border-l border-gray-400">السيارة 5219</div>
+                                <div class="bg-white text-black py-1 border-l border-gray-400">السائق</div>
+                                <div class="bg-white text-black py-1 border-l border-gray-400">بنزين 80</div>
+                                <div class="bg-[#D96B27] text-white py-1 border-l border-gray-400">رقم العداد</div>
+                                <div class="bg-red-600 text-white py-1 border-l border-gray-400">المتوسط 7.5</div>
+                                <div class="bg-[#D96B27] text-white py-1 border-l border-gray-400">فرق الزيادة</div>
+                                <div class="bg-[#2E6B34] text-white py-1">العجز الفعلي</div>
+                            </div>
+                            <div class="grid grid-cols-8 text-center bg-gray-100 text-black border-t border-gray-400 text-[6px]">
+                                <div class="py-0.5 border-l border-gray-300">سجل يومي</div>
+                                <div class="py-0.5 border-l border-gray-300">5219</div>
+                                <div class="py-0.5 border-l border-gray-300">اسم السائق</div>
+                                <div class="py-0.5 border-l border-gray-300">80</div>
+                                <div class="py-0.5 border-l border-gray-300">قبل | بعد</div>
+                                <div class="py-0.5 border-l border-gray-300">20.75 ج</div>
+                                <div class="py-0.5 bg-yellow-300 text-red-700 font-extrabold border-l border-gray-300">60.00</div>
+                                <div class="py-0.5 bg-[#2E6B34] text-white">0.00</div>
+                            </div>
+                            ${[1, 2, 3, 4, 5, 6].map(() => `
+                                <div class="grid grid-cols-8 text-center border-t border-gray-400 text-[7px] font-mono">
+                                    <div class="bg-white text-gray-600 py-1 border-l border-gray-300">--/--</div>
+                                    <div class="bg-white text-black py-1 border-l border-gray-300">5219</div>
+                                    <div class="bg-white text-gray-500 py-1 border-l border-gray-300">—</div>
+                                    <div class="bg-white text-black py-1 border-l border-gray-300">80</div>
+                                    <div class="bg-white text-black py-1 border-l border-gray-300">0</div>
+                                    <div class="bg-white text-black py-1 border-l border-gray-300">20.75</div>
+                                    <div class="bg-[#C04A1A] text-black py-1 border-l border-gray-300">0.00</div>
+                                    <div class="bg-[#38763D] text-black font-bold py-1">0.00</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 4. Excel #2: Dark Navy & Crimson Sales Dashboard
+            if (project.previewStyle === "excel-sales-dashboard") {
+                return `
+                    <div dir="ltr" class="w-full h-full bg-[#6E6E6E] p-2.5 flex flex-col justify-between select-none overflow-hidden group-hover:scale-[1.03] transition-transform duration-500">
+                        <div class="bg-[#0F273D] text-white text-center font-extrabold text-[10px] py-1 rounded">
+                            Sales Dashboard
+                        </div>
+                        <div class="grid grid-cols-12 gap-1.5 mt-1.5 flex-1">
+                            <div class="col-span-3 bg-[#0F273D] rounded-lg p-1.5 flex flex-col justify-between">
+                                <div class="text-[7px] text-blue-200 font-semibold">Filters & Slicers</div>
+                                <div class="bg-white rounded p-1 text-black">
+                                    <div class="text-[6px] font-bold">Order Date</div>
+                                    <div class="text-[5px] text-gray-500">2014 - 2016</div>
+                                    <div class="h-1.5 bg-sky-500 rounded mt-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-span-6 flex flex-col gap-1.5">
+                                <div class="grid grid-cols-3 gap-1">
+                                    <div class="bg-[#0F273D] rounded p-1 text-center">
+                                        <div class="bg-[#C00000] text-white text-[6px] font-bold py-0.5 rounded-sm">Total Sales</div>
+                                        <div class="text-[8px] font-extrabold text-white mt-0.5">2297200.86</div>
+                                    </div>
+                                    <div class="bg-[#0F273D] rounded p-1 text-center">
+                                        <div class="bg-[#C00000] text-white text-[6px] font-bold py-0.5 rounded-sm">Total Qty</div>
+                                        <div class="text-[8px] font-extrabold text-white mt-0.5">37873.00</div>
+                                    </div>
+                                    <div class="bg-[#0F273D] rounded p-1 text-center">
+                                        <div class="bg-[#C00000] text-white text-[6px] font-bold py-0.5 rounded-sm">AVG Profit</div>
+                                        <div class="text-[8px] font-extrabold text-white mt-0.5">28.66</div>
+                                    </div>
+                                </div>
+                                <div class="bg-[#0F273D] rounded-lg p-1.5 flex-1 flex flex-col justify-between">
+                                    <div class="bg-[#C00000] text-white text-[6px] font-bold text-center py-0.5 rounded-sm w-24 mx-auto">Sales Overtime</div>
+                                    <svg viewBox="0 0 120 35" class="w-full h-8 overflow-visible">
+                                        <polyline fill="none" stroke="#FF1E27" stroke-width="2.5" points="10,25 45,26 80,16 112,8" />
+                                    </svg>
+                                </div>
+                                <div class="grid grid-cols-2 gap-1.5 h-14">
+                                    <div class="bg-[#0F273D] rounded-lg p-1.5 flex items-end gap-1">
+                                        <div class="w-full bg-[#C00000] h-[95%] rounded-t-sm"></div>
+                                        <div class="w-full bg-[#C00000] h-[60%] rounded-t-sm"></div>
+                                        <div class="w-full bg-[#C00000] h-[38%] rounded-t-sm"></div>
+                                    </div>
+                                    <div class="bg-[#0F273D] rounded-lg p-1 flex items-center justify-center">
+                                        <div class="w-10 h-10 rounded-full border-2 border-white" style="background: conic-gradient(#1F6E8C 0% 22%, #E67E22 22% 51%, #27AE60 51% 68%, #00A8E8 68% 100%);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-span-3 bg-[#0F273D] rounded-lg p-1.5 flex flex-col justify-between">
+                                <div class="bg-[#C00000] text-white text-[6px] font-bold text-center py-0.5 rounded-sm">By Sub Category</div>
+                                <div class="space-y-1 my-auto">
+                                    ${[30, 20, 65, 70, 95, 45, 80, 55, 100, 60].map(w => `
+                                        <div class="h-1.5 bg-[#C00000] rounded-r-sm" style="width:${w}%"></div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 5. MS Access #1: Warehouse In/Out Form
+            if (project.previewStyle === "db-warehouse-inout") {
+                return `
+                    <div dir="ltr" class="w-full h-full bg-[#F8FAFC] flex flex-col justify-between select-none overflow-hidden group-hover:scale-[1.03] transition-transform duration-500 text-gray-800">
+                        <div class="bg-[#B8D4F5] px-3 py-1.5 border-b border-blue-300 flex items-center justify-between">
+                            <span class="text-[8px] font-mono text-gray-600">MS Access Form</span>
+                            <span class="text-xs font-extrabold text-gray-800" dir="rtl">تسجيل الوارد والمنصرف</span>
+                        </div>
+                        <div class="p-3 space-y-2 flex-1 flex flex-col justify-center text-[8px]">
+                            <div class="grid grid-cols-3 gap-2 items-center">
+                                <div class="flex items-center justify-between gap-1">
+                                    <span class="font-semibold text-gray-600">TransactionID</span>
+                                    <span class="px-1.5 py-0.5 bg-white border border-gray-400 text-gray-700 font-mono">(New)</span>
+                                </div>
+                                <div class="flex items-center justify-between gap-1">
+                                    <span class="font-semibold text-gray-600">ProductID</span>
+                                    <span class="px-2 py-0.5 bg-white border border-gray-400">▾</span>
+                                </div>
+                                <div class="flex items-center justify-end gap-1" dir="rtl">
+                                    <span class="font-bold text-gray-700">الرصيد المتاح:</span>
+                                    <span class="px-2 py-0.5 bg-white border border-gray-400 font-bold">0</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 pt-1">
+                                <div class="space-y-1 bg-white p-1.5 rounded border border-gray-200">
+                                    <div class="flex justify-between"><span>In_Quantity</span><span class="border border-gray-300 px-2">0</span></div>
+                                    <div class="flex justify-between"><span>In_Price</span><span class="border border-gray-300 px-1.5">0.00 ج.م</span></div>
+                                    <div class="flex justify-between"><span>In_Total</span><span class="border border-gray-300 px-3">&nbsp;</span></div>
+                                </div>
+                                <div class="space-y-1 bg-white p-1.5 rounded border border-gray-200">
+                                    <div class="flex justify-between"><span>Out_Quantity</span><span class="border border-gray-300 px-2">0</span></div>
+                                    <div class="flex justify-between"><span>Out_Price</span><span class="border border-gray-300 px-1.5">0.00 ج.م</span></div>
+                                    <div class="flex justify-between"><span>اسم_المستلم</span><span class="border border-gray-300 px-3">&nbsp;</span></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center gap-3 pt-1">
+                                <span class="px-4 py-1 rounded bg-gradient-to-b from-sky-200 to-sky-400 border border-sky-500 text-sky-950 font-bold text-[8px] shadow-sm">
+                                    <i class="fa-solid fa-floppy-disk"></i> Save Record
+                                </span>
+                                <span class="px-4 py-1 rounded bg-gradient-to-b from-sky-200 to-sky-400 border border-sky-500 text-sky-950 font-bold text-[8px] shadow-sm">
+                                    <i class="fa-solid fa-plus"></i> New Entry
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 6. MS Access #2: Car Oil Change & Odometer Monitoring Form
+            return `
+                <div dir="ltr" class="w-full h-full bg-[#FFFFFF] p-3.5 flex flex-col justify-between select-none overflow-hidden group-hover:scale-[1.03] transition-transform duration-500 text-gray-800">
+                    <div class="flex items-center justify-between border-b border-gray-200 pb-1.5">
+                        <span class="text-[9px] font-bold text-navyRoyal flex items-center gap-1.5">
+                            <i class="fa-solid fa-oil-can"></i> Engine Oil & Fleet Odometer Form
+                        </span>
+                        <span class="text-[7px] font-mono bg-gray-100 px-1.5 py-0.5 rounded border border-gray-300">MS Access DB</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-[8px] pt-1">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-semibold text-gray-600">Car number</span>
+                            <div class="flex-1 h-5 bg-white border border-gray-400 flex items-center justify-end px-1 text-gray-600">▾</div>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-semibold text-gray-600">car type</span>
+                            <div class="w-16 h-5 bg-white border border-gray-400"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 text-[8px]">
+                        <span class="font-semibold text-gray-600">OilInterval</span>
+                        <div class="w-28 h-5 bg-white border border-gray-400"></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2.5 text-[7px] pt-1">
+                        <div>
+                            <div class="font-semibold text-gray-600 mb-1">oil changed in</div>
+                            <div class="h-6 bg-gray-50 border border-gray-400"></div>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-600 mb-1">when the oil will change</div>
+                            <div class="h-6 bg-gray-50 border border-gray-400"></div>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-600 mb-1">Remaining KM</div>
+                            <div class="h-6 bg-blue-50/70 border border-blue-400"></div>
+                        </div>
+                    </div>
+                    <div class="text-[7px]">
+                        <div class="font-semibold text-gray-600 mb-0.5">current odometer</div>
+                        <div class="w-28 h-5 bg-white border border-gray-400"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // =========================================================================
+        // RENDER PROJECT SECTIONS & CARDS (BILINGUAL)
+        // =========================================================================
+        function renderProjects(filter = "all") {
+            currentFilter = filter;
+            const t = TRANSLATIONS[currentLang];
+            const arrowIcon = currentLang === "ar" ? "fa-arrow-left" : "fa-arrow-right";
+            const container = document.getElementById("projectsContainer");
+            container.innerHTML = "";
+
+            CATEGORY_SECTIONS.forEach(section => {
+                if (filter !== "all" && filter !== section.key) return;
+
+                const sectionProjects = PROJECTS_DATA.filter(p => p.category === section.key);
+                if (sectionProjects.length === 0) return;
+
+                const countLabel = sectionProjects.length === 1 ? t.projectSingular : t.projectPlural;
+
+                const sectionHTML = `
+                    <div class="space-y-6">
+                        <!-- Category Sub-header -->
+                        <div class="flex items-start sm:items-center justify-between border-b border-borderSubtle pb-4 gap-4">
+                            <div class="flex items-center gap-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-navyDeep border border-accentBlue/40 flex items-center justify-center text-accentBlue font-extrabold text-sm shrink-0">
+                                    ${section.number}
+                                </div>
+                                <div>
+                                    <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2.5">
+                                        <span>${section.title[currentLang]}</span>
+                                    </h3>
+                                    <p class="text-xs sm:text-sm text-gray-400 mt-0.5">${section.subtitle[currentLang]}</p>
+                                </div>
+                            </div>
+                            <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface border border-borderSubtle text-xs text-gray-400">
+                                <i class="fa-solid ${section.icon} text-accentBlue"></i>
+                                ${sectionProjects.length} ${countLabel}
+                            </span>
+                        </div>
+
+                        <!-- Cards Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+                            ${sectionProjects.map(project => `
+                                <article onclick="openPreviewModal('${project.id}')" 
+                                         class="project-card group cursor-pointer rounded-2xl bg-surface border border-borderSubtle overflow-hidden flex flex-col justify-between">
+                                    
+                                    <!-- Top Screenshot / Interface Preview Area -->
+                                    <div class="relative h-56 sm:h-64 w-full bg-trueblack border-b border-borderSubtle overflow-hidden">
+                                        ${generateCardThumbnailHTML(project)}
+
+                                        <!-- Interactive Hover Overlay -->
+                                        <div class="absolute inset-0 bg-trueblack/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center backdrop-blur-[2px]">
+                                            <span class="px-5 py-2.5 rounded-xl bg-navyRoyal border border-accentBlue text-white font-semibold text-sm shadow-xl flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                                <i class="fa-solid fa-expand text-accentBlue"></i>
+                                                <span>${t.cardHoverBtn}</span>
+                                            </span>
+                                            <span class="mt-2.5 inline-flex items-center gap-1.5 text-[11px] text-gray-300">
+                                                <i class="fa-solid fa-lock text-amber-400 text-[10px]"></i>
+                                                ${t.cardHoverSub}
+                                            </span>
+                                        </div>
+
+                                        <!-- Corner Badge -->
+                                        <div class="absolute top-3 ${currentLang === 'ar' ? 'left-3' : 'right-3'} px-2.5 py-1 rounded-lg bg-trueblack/90 backdrop-blur-md border border-borderSubtle text-[11px] font-semibold text-gray-200 flex items-center gap-1.5 shadow-md">
+                                            <span class="w-1.5 h-1.5 rounded-full ${project.category === 'excel' ? 'bg-emerald-400' : 'bg-accentBlue'}"></span>
+                                            <span>${project.badgeText[currentLang]}</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bottom Card Content -->
+                                    <div class="p-6 flex-1 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-2 mb-2">
+                                                <span class="text-xs font-bold uppercase tracking-wider text-accentBlue">${project.categoryLabel[currentLang]}</span>
+                                                <span class="text-xs text-gray-400 group-hover:text-accentBlue transition flex items-center gap-1">
+                                                    ${t.cardExploreHint} <i class="fa-solid ${arrowIcon} text-[10px]"></i>
+                                                </span>
+                                            </div>
+                                            <h4 class="text-lg sm:text-xl font-bold text-white group-hover:text-blue-300 transition leading-snug">
+                                                ${project.title[currentLang]}
+                                            </h4>
+                                            <p class="text-xs text-gray-500 font-medium mt-0.5">${project.subtitle[currentLang]}</p>
+                                            <p class="text-sm text-gray-300 mt-3 leading-relaxed">
+                                                ${project.description[currentLang]}
+                                            </p>
+                                        </div>
+
+                                        <!-- Tech Stack Tags -->
+                                        <div class="flex flex-wrap gap-2 mt-5 pt-4 border-t border-borderSubtle/70">
+                                            ${project.tags.map(tag => `
+                                                <span class="px-2.5 py-1 rounded-lg bg-surfaceHighlight border border-borderSubtle text-xs font-medium text-gray-300">
+                                                    ${tag}
+                                                </span>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </article>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                container.insertAdjacentHTML("beforeend", sectionHTML);
+            });
+        }
+
+        // Category Filter Handler
+        function filterProjects(category) {
+            document.querySelectorAll(".filter-btn").forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.classList.add("bg-navyRoyal", "text-white");
+                    btn.classList.remove("text-gray-400");
+                } else {
+                    btn.classList.remove("bg-navyRoyal", "text-white");
+                    btn.classList.add("text-gray-400");
+                }
+            });
+            renderProjects(category);
+        }
+
+        // =========================================================================
+        // INTERACTIVE READ-ONLY LIVE PREVIEW MODAL ENGINE (ONEDRIVE EMBEDS)
+        // =========================================================================
+        function buildOneDriveEmbedUrl(rawUrl) {
+            if (!rawUrl) return "";
+            try {
+                const urlObj = new URL(rawUrl);
+                if (urlObj.hostname.includes("1drv.ms") && !urlObj.searchParams.has("embed")) {
+                    urlObj.searchParams.set("embed", "1");
+                }
+                return urlObj.toString();
+            } catch (e) {
+                return rawUrl;
+            }
+        }
+
+        function openPreviewModal(projectId) {
+            const project = PROJECTS_DATA.find(p => p.id === projectId);
+            if (!project) return;
+            const t = TRANSLATIONS[currentLang];
+
+            document.getElementById("modalCategoryBadge").textContent = project.categoryLabel[currentLang];
+            document.getElementById("modalTitle").textContent = project.title[currentLang];
+            document.getElementById("modalDescription").textContent = project.description[currentLang];
+
+            const extLink = document.getElementById("modalExternalLink");
+            extLink.classList.remove("hidden");
+            extLink.href = project.embedUrl;
+
+            const tagsContainer = document.getElementById("modalTechTags");
+            tagsContainer.innerHTML = project.tags.map(tag => 
+                `<span class="px-2 py-0.5 rounded bg-surfaceHighlight border border-borderSubtle text-[11px] text-gray-300">${tag}</span>`
+            ).join("");
+
+            const viewport = document.getElementById("modalViewport");
+            const finalEmbedUrl = buildOneDriveEmbedUrl(project.embedUrl);
+
+            viewport.innerHTML = `
+                <div class="w-full h-full flex flex-col bg-[#08090C] relative">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 pointer-events-none z-0 p-6 text-center">
+                        <i class="fa-solid fa-circle-notch fa-spin text-2xl text-accentBlue mb-3"></i>
+                        <p class="text-sm font-medium text-gray-300">${t.modalLoadingTitle}</p>
+                        <p class="text-xs text-gray-500 mt-1 max-w-md">${t.modalLoadingSub}</p>
+                    </div>
+
+                    <iframe src="${finalEmbedUrl}" 
+                            class="w-full h-full border-0 relative z-10 bg-transparent" 
+                            frameborder="0"
+                            scrolling="no"
+                            allowfullscreen="true"
+                            allow="autoplay; fullscreen">
+                    </iframe>
+                </div>
+            `;
+
+            const modal = document.getElementById("previewModal");
+            modal.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+        }
+
+        // =========================================================================
+        // INTERACTIVE WE TELECOM EGYPT CERTIFICATE VIEWER MODAL
+        // =========================================================================
+        function openCertificateModal() {
+            const isAr = currentLang === "ar";
+            document.getElementById("modalCategoryBadge").textContent = isAr ? "شهادة معتمدة" : "Verified Diploma";
+            document.getElementById("modalTitle").textContent = isAr
+                ? "دبلومة تحليل البيانات (160 ساعة) — المصرية للاتصالات WE"
+                : "Data Analysis Diploma (160 Hours) — Telecom Egypt (WE)";
+            document.getElementById("modalDescription").textContent = isAr
+                ? "شهادة إتمام دبلومة تحليل البيانات المعتمدة من الشركة المصرية للاتصالات (WE) — 160 ساعة تدريبية."
+                : "Official certificate of completion for the 160-hour Data Analysis Diploma awarded by Telecom Egypt (WE).";
+
+            document.getElementById("modalExternalLink").classList.add("hidden");
+
+            const tagsContainer = document.getElementById("modalTechTags");
+            tagsContainer.innerHTML = ["Excel", "Power BI", "Power Query", "Python", "SQL Server"].map(t => 
+                `<span class="px-2 py-0.5 rounded bg-surfaceHighlight border border-borderSubtle text-[11px] text-gray-300">${t}</span>`
+            ).join("");
+
+            const viewport = document.getElementById("modalViewport");
+            viewport.innerHTML = `
+                <div dir="ltr" class="w-full min-h-full bg-[#090B10] p-4 sm:p-8 flex items-center justify-center select-none">
+                    <div class="relative w-full max-w-3xl bg-[#5A2D6E] p-4 sm:p-6 rounded-2xl shadow-2xl border border-purple-400/30 overflow-hidden">
+                        <div class="bg-gradient-to-b from-[#F9F9FB] via-[#F2F2F5] to-[#E9E9EE] text-gray-900 rounded-3xl sm:rounded-full aspect-auto sm:aspect-[1.15/1] px-6 py-8 sm:px-14 sm:py-10 flex flex-col items-center justify-between text-center shadow-inner relative border-4 border-white/80">
+                            
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#662D73] flex items-center justify-center shadow-md">
+                                <span class="text-white font-extrabold text-2xl sm:text-3xl tracking-tighter lowercase">we</span>
+                            </div>
+
+                            <div class="my-3 sm:my-2 space-y-1.5 sm:space-y-2">
+                                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-widest text-gray-900 uppercase">CERTIFICATE</h2>
+                                <p class="text-xs sm:text-sm text-gray-600 font-medium">This is to certify that</p>
+                                <div class="text-xl sm:text-2xl font-extrabold text-gray-950 tracking-tight pt-0.5">
+                                    Nader Adel Abdelmassih Saleep
+                                </div>
+                                <p class="text-xs sm:text-sm text-gray-700">
+                                    has successfully completed the training Diploma for <span class="font-bold text-gray-950">160 hours</span>
+                                </p>
+                                <div class="text-lg sm:text-2xl font-extrabold text-gray-950 pt-1">
+                                    &ldquo; Data Analysis Diploma &rdquo;
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-x-4 sm:gap-x-8 gap-y-1 text-xs sm:text-sm font-semibold text-gray-800 my-2 text-left">
+                                <div>- Excel</div>
+                                <div>- Power BI</div>
+                                <div>- Power Query</div>
+                                <div>- Python</div>
+                                <div>- SQL Server</div>
+                                <div></div>
+                            </div>
+
+                            <div class="w-full flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t border-gray-300/70 mt-2">
+                                <div class="w-20 h-20 rounded-full border-2 border-[#3B3355] flex flex-col items-center justify-center p-1 text-[#3B3355] rotate-[-8deg] shrink-0">
+                                    <span class="text-[7px] font-bold">المصرية للاتصالات</span>
+                                    <span class="text-sm font-extrabold lowercase leading-none my-0.5">we</span>
+                                    <span class="text-[6px] font-semibold tracking-tight">telecomegypt</span>
+                                </div>
+
+                                <div class="text-xs sm:text-sm font-bold text-gray-800">
+                                    August 9 - September 25, 2026
+                                </div>
+
+                                <div class="text-center shrink-0">
+                                    <div class="font-serif italic text-base sm:text-lg font-bold text-[#1E3A8A] leading-none">A. Maher</div>
+                                    <div class="w-28 h-[1px] bg-gray-400 my-1 mx-auto"></div>
+                                    <div class="text-[9px] font-bold text-gray-800">Training and Development</div>
+                                    <div class="text-[9px] font-semibold text-gray-600">Chief Sector</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById("previewModal");
+            modal.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closePreviewModal() {
+            const modal = document.getElementById("previewModal");
+            modal.classList.add("hidden");
+            document.getElementById("modalViewport").innerHTML = "";
+            document.getElementById("modalExternalLink").classList.remove("hidden");
+            document.body.style.overflow = "";
+        }
+
+        // Close modal on Escape key or backdrop click
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closePreviewModal();
+        });
+        document.getElementById("previewModal").addEventListener("click", (e) => {
+            if (e.target.id === "previewModal") closePreviewModal();
+        });
+
+        // =========================================================================
+        // CLIPBOARD COPY UTILITY (IFRAME-SAFE) + TOAST FEEDBACK
+        // =========================================================================
+        function copyToClipboard(text, message) {
+            const tempInput = document.createElement("textarea");
+            tempInput.value = text;
+            tempInput.style.position = "fixed";
+            tempInput.style.opacity = "0";
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand("copy");
+                showToast(message);
+            } catch (err) {
+                showToast("Could not copy automatically.");
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById("toastNotification");
+            document.getElementById("toastMessage").textContent = msg;
+            toast.classList.remove("translate-y-20", "opacity-0");
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add("translate-y-20", "opacity-0");
+            }, 2800);
+        }
+
+        // Mobile Navigation Menu Toggle
+        document.getElementById("mobileMenuBtn").addEventListener("click", () => {
+            document.getElementById("mobileMenu").classList.toggle("hidden");
+        });
+
+        // Initialize Page on Load
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("currentYear").textContent = new Date().getFullYear();
+            applyLanguage("en");
+        });
+    </script>
+</body>
+</html>
